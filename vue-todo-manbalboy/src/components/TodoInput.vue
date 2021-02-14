@@ -4,14 +4,20 @@
         <span class="addContainer" v-on:click="addTodo">
             <i class="fas fa-plus addBtn"></i>
         </span>
+
+        <Modal v-if="showModal" @close="showModal = false">
+            <h3 slot="header">custom header</h3>
+        </Modal>
     </div>
 </template>
 
 <script>
+    import Modal from './common/Modal.vue'
     export default {
         data : function() {
             return {
-                newTodoItem : ""
+                newTodoItem : "",
+                showModal : false
             }
         },
 
@@ -27,6 +33,10 @@
                 this.newTodoItem = "";
             }
         },
+
+        components : {
+            'Modal' : Modal
+        }
     }
 </script>
 
