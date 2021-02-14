@@ -1,8 +1,11 @@
 <template>
     <div>
         <ul>
-            <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem" class="shadow">
-                {{ todoItem }}
+            <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem.item" class="shadow">
+                <i class="fas fa-check checkBtn" v-bind:class="{checkBtnCompleted : todoItem.completed}" v-on:click="toggleComplete(todoItem, index)"></i>
+                <span v-bind:class="{textCompleted : todoItem.completed}">
+                    {{ todoItem.item }}
+                </span>
                 <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
                     <i class="fas fa-trash-alt"></i>
                 </span>
@@ -18,7 +21,8 @@
             if (localStorage.length > 0) {
                 for (var i = 0; i < localStorage.length; i++) {
                     if(localStorage.key(i) !== 'loglevel:webpack-dev-server'){
-                        this.todoItems.push(localStorage.key(i));
+                        var sJsonStr = JSON.parse(localStorage.getItem(localStorage.key(i)));
+                        this.todoItems.push(sJsonStr);
                     }
                 }
             }
@@ -28,6 +32,12 @@
             removeTodo : function  (todoItem, index) {
                 localStorage.removeItem(todoItem);
                 this.todoItems.splice(index, 1);
+            },
+
+            toggleComplete : function  (todoItem) {
+                localStorage.removeItem(todoItem.item);
+                localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+                todoItem.completed = !todoItem.completed;
             }
         },
 
@@ -39,7 +49,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     ul {
         list-style-type: none;
         padding-left: 0px;
@@ -60,17 +70,17 @@
 
     .checkBtn {
         line-height: 45px;
-        color: #62acde;
+        color: #3ba7ee;
         margin-right: 5px;
     }
 
     .checkBtnCompleted {
-        color : #b3adad;
+        color : #535252;
     }
 
     .textCompleted {
         text-decoration: line-through;
-        color: #b3adad;
+        color: #535252;
     }
 
     .removeBtn{
