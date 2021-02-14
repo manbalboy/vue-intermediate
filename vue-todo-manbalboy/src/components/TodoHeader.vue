@@ -11,9 +11,9 @@
 </script>
 
 <style scoped>
-h1 {
-    color : #9ba1ac;
-    font-weight: 900;
-    margin: 2.5rem 0 1.5rem;
-}
+    h1 {
+        color : #9ba1ac;
+        font-weight: 900;
+        margin: 2.5rem 0 1.5rem;
+    }
 </style>

@@ -2,7 +2,7 @@
   <div id="app">
       <TodoHeader></TodoHeader>
       <TodoInput></TodoInput>
-      <TodoList></TodoList>
+      <TodoList v-bind:propsdata="todoItems"></TodoList>
       <TodoFooter></TodoFooter>
   </div>
 </template>
@@ -14,6 +14,23 @@
     import TodoFooter from './components/TodoFooter.vue'
 
     export default {
+        data : function () {
+            return {
+                todoItems : []
+            }
+        }, 
+
+        created : function () {
+            if (localStorage.length > 0) {
+                for (var i = 0; i < localStorage.length; i++) {
+                    if(localStorage.key(i) !== 'loglevel:webpack-dev-server'){
+                        var sJsonStr = JSON.parse(localStorage.getItem(localStorage.key(i)));
+                        this.todoItems.push(sJsonStr);
+                    }
+                }
+            }
+        },
+
         components : {
             'TodoHeader' : TodoHeader,
             'TodoInput' : TodoInput,
@@ -24,21 +41,21 @@
 </script>
 
 <style>
-body {
-    text-align: center;
-    background-color: #141313;
-}
+    body {
+        text-align: center;
+        background-color: #141313;
+    }
 
-input {
-    border-style: groove;
-    width: 200px;
-}
+    input {
+        border-style: groove;
+        width: 200px;
+    }
 
-button {
-    border-style: groove;
-}
+    button {
+        border-style: groove;
+    }
 
-.shadow{
-    box-shadow: 5px 10px 10px rgba(0,0,0,0.03);
-}
+    .shadow{
+        box-shadow: 5px 10px 10px rgba(0,0,0,0.03);
+    }
 </style>

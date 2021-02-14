@@ -1,7 +1,7 @@
 <template>
     <div>
         <ul>
-            <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem.item" class="shadow">
+            <li v-for="(todoItem, index) in propsdata" v-bind:key="todoItem.item" class="shadow">
                 <i class="fas fa-check checkBtn" v-bind:class="{checkBtnCompleted : todoItem.completed}" v-on:click="toggleComplete(todoItem, index)"></i>
                 <span v-bind:class="{textCompleted : todoItem.completed}">
                     {{ todoItem.item }}
@@ -16,18 +16,7 @@
 
 <script>
     export default {
-        // created vue 라이프사이클 인스턴스 생성될때 한번 호출
-        created : function () {
-            if (localStorage.length > 0) {
-                for (var i = 0; i < localStorage.length; i++) {
-                    if(localStorage.key(i) !== 'loglevel:webpack-dev-server'){
-                        var sJsonStr = JSON.parse(localStorage.getItem(localStorage.key(i)));
-                        this.todoItems.push(sJsonStr);
-                    }
-                }
-            }
-        },
-
+        props : ['propsdata'] , 
         methods: {
             removeTodo : function  (todoItem, index) {
                 localStorage.removeItem(todoItem);
@@ -38,12 +27,6 @@
                 localStorage.removeItem(todoItem.item);
                 localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
                 todoItem.completed = !todoItem.completed;
-            }
-        },
-
-        data : function () {
-            return  {
-                todoItems : []
             }
         }
     }
