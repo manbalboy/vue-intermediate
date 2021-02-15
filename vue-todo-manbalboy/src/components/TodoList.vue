@@ -20,9 +20,7 @@
         methods: {
             ...mapMutations({
                 removeTodo : "removeOneItem",
-            }),
-            ...mapMutations({
-                toggleComplete : "toggleOneItem",
+                toggleComplete : "toggleOneItem"
             })
         },
 
