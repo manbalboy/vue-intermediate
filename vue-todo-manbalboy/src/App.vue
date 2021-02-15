@@ -22,7 +22,7 @@
 
         methods: {
             addOneItem : function  (todoItem) {
-                var obj = {completed: false, item: todoItem}
+                const obj = {completed: false, item: todoItem}
                 localStorage.setItem(todoItem, JSON.stringify(obj));
                 this.todoItems.push(obj);
             },
@@ -47,10 +47,9 @@
 
         created : function () {
             if (localStorage.length > 0) {
-                for (var i = 0; i < localStorage.length; i++) {
+                for (let i = 0; i < localStorage.length; i++) {
                     if(localStorage.key(i) !== 'loglevel:webpack-dev-server'){
-                        var sJsonStr = JSON.parse(localStorage.getItem(localStorage.key(i)));
-                        this.todoItems.push(sJsonStr);
+                        this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
                     }
                 }
             }
