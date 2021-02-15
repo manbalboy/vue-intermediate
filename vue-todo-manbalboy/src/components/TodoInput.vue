@@ -41,7 +41,7 @@
         },
 
         components : {
-            'Modal' : Modal
+            Modal
         }
     }
 </script>
